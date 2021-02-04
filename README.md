@@ -9,9 +9,13 @@ application will harness the slow and steady strength of habit formation by prov
  discrete accountability partner in their pocket. The app will aid the user in blazing new paths and returning the
  habits that they've outgrown to nature.
 
-*Inclination will:* 
-- Function as a text editor for journal entries
-- Provide a field for the date of the entry
-- Allow users to input habits that they would like to track
-- Allow users to check off the habits that they performed since their last 
-entry 
+This app will be used by people who would like to track their habits on the basis that they choose, 
+and log this information for a later date. This interests me because I am currently storing this information for myself
+in a text file. It's time to improve my habit tracking setup. 
+
+## User Stories 
+*As a user, I want to* 
+ - Add dated journal entries
+ - View past journal entries
+ - Add habits to track at each entry
+ - Check off the habits that I performed and store this information with the entry
