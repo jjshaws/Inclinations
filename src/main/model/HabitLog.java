@@ -20,6 +20,8 @@ public class HabitLog {
     //EFFECTS: Adds the HabitEntry to the HabitLog if it is not full and returns true is it can , false if full
     public boolean addHabitEntry(HabitEntry h) {
         if (habits.size() >= MAX_SIZE) {
+            System.out.println();
+            System.out.println("Max habits reached. Delete a habit to make more space");
             return false;
         } else {
             habits.add(h);
@@ -31,10 +33,10 @@ public class HabitLog {
     public void listHabitNames() {
         int i = 1;
         for (HabitEntry h: habits) {
-            System.out.println(i + "- " + h.getHabit());
-            i++;
-        }
+        System.out.println(i + "- " + h.getHabit());
+        i++;
     }
+
 
     //REQUIRES: this isn't empty
     //MODIFIES: this

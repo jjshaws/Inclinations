@@ -133,7 +133,7 @@ public class HabitTrackerApp {
         int intCommand = Integer.parseInt(command);
 
         if (intCommand > tracker.getDefaultHabitLogLength() || intCommand < 1) {
-            System.out.println("Selection not valid... Must be between 0 and " + tracker.getDefaultHabitLogLength());
+            System.out.println("Selection not valid... Must be between 1 and " + tracker.getDefaultHabitLogLength());
         } else if (intCommand <= tracker.getDefaultHabitsMaxSize() && intCommand > 0) {
             tracker.removeDefaultHabitEntryWithIndex(intCommand);
         } else {
