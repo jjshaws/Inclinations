@@ -17,5 +17,5 @@ in a text file. It's time to improve my habit tracking setup.
 *As a user, I want to* 
  - Add dated journal entries
  - View past journal entries
- - Add habits to track at each entry
+ - Add daily habits to track at each entry
  - Check off the habits that I performed and store this information with the entry
