@@ -31,6 +31,11 @@ public class Entry {
         return date;
     }
 
+    //EFFECTS: Checks if the date of the entry matches the string
+    public boolean dateEquals(String s) {
+        return date.equals(s);
+    }
+
     //EFFECTS: Changes the note of the entry
     public void setEntryDate(String date) {
         this.date = date;
@@ -44,6 +49,17 @@ public class Entry {
     //EFFECTS Returns the written note of the entry
     public void setHabits(HabitLog habits) {
         this.habits = habits;
+    }
+
+    //EFFECTS prints the contents of an entry
+    public void printEntry() {
+        System.out.println("Date: " + this.getEntryDate());
+        System.out.println();
+        System.out.println("Note:");
+        System.out.println(this.getNote());
+        System.out.println();
+        System.out.println("Habits:");
+        habits.printHabits();
     }
 }
 

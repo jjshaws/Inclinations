@@ -45,11 +45,9 @@ public class HabitTrackerApp {
 
     // EFFECTS: Displays previous entries menu
     private void displayEntriesMenu() {
-        System.out.println("What would you like to do?");
-        System.out.println("1 - Delete an entry");
-        System.out.println("2 - Modify the note of a previous entry");
-        System.out.println("3 - Modify the completion of a previous entry");
-        System.out.println("4 - Quit");
+        System.out.println();
+        System.out.println("Enter the date of the entry that you would you like to view, or r to return to main menu");
+        tracker.listEntryDates();
     }
 
     // MODIFIES: this
@@ -242,20 +240,53 @@ public class HabitTrackerApp {
         boolean keepGoing = true;
         String command = null;
 
+        if (tracker.getNumEntries() == 0) {
+            System.out.println();
+            System.out.println("You have no Entries in your default list! Please add some");
+            keepGoing = false;
+        }
+
         while (keepGoing) {
             displayEntriesMenu();
-            command = input.next();
+            command = getValidEntriesCommand();
 
-            if (command.equals("3")) {
+            if (command.equals("r")) {
                 keepGoing = false;
             } else {
-                processHabitsCommand(command);
+                processDateCommand(command);
             }
         }
     }
 
+    public void processDateCommand(String command) {
+        boolean exists = tracker.doesEntryExist(command);
+
+        if (exists) {
+            viewEntry(command);
+        } else {
+            System.out.println("There is no entry for the given date");
+        }
+    }
+
+    public String getValidEntriesCommand() {
+        String s = input.next();
+
+        while (!s.matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$") && !s.matches("r")) {
+            System.out.println("Invalid format");
+            System.out.println("Enter the date in YYYY-MM-DD format, or \"r\" to return");
+            s = input.next();
+        }
+        return s;
+    }
+
+    public void viewEntry(String date) {
+        System.out.println("Entry found");
+        System.out.println();
+        tracker.printEntryContents(date);
+    }
+
     // MODIFIES: this
-    // EFFECTS: ensures that the entered string is in YYYY-MM-DD format
+    // EFFECTS: ensures that the entered string is in YYYY-MM-DD format or YYYY-M-D
     public String getValidDate() {
         String s = input.next();
 

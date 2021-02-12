@@ -65,6 +65,19 @@ public class HabitLog {
         return habits.size();
     }
 
+    // EFFECTS: Prints the habits and if they were completed
+    public void printHabits() {
+        for (HabitEntry h: habits) {
+            System.out.println(h.getHabit());
+            if (h.getCompletion()) {
+                System.out.println("Complete");
+            } else {
+                System.out.println("Incomplete");
+            }
+            System.out.println();
+        }
+    }
+
     //EFFECTS: Returns the number of completed habits for a given HabitLog
     public int getNumCompletions() {
         int completions = 0;
