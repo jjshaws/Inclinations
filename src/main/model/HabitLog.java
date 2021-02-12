@@ -3,7 +3,7 @@ package model;
 
 import java.util.LinkedList;
 import java.util.List;
-
+import java.io.*;
 
 //Represents a list of HabitEntries for a particular day
 public class HabitLog {
@@ -27,12 +27,29 @@ public class HabitLog {
         }
     }
 
+    //EFFECTS: Produces all names of habits, numbered
+    public void listHabitNames() {
+        int i = 1;
+        for (HabitEntry h: habits) {
+            System.out.println(i + "- " + h.getHabit());
+            i++;
+        }
+    }
+
     //REQUIRES: this isn't empty
     //MODIFIES: this
     //EFFECTS: removes the incident at the front of the list
     public HabitEntry getNextHabitEntry() {
         return habits.poll();
     }
+
+
+    //MODIFIES: this
+    //EFFECTS: removes the HabitEntry from the HabitLog, returns true. Returns false if not present
+    public void removeHabitAtPosition(int i) {
+        habits.remove(i - 1);
+    }
+
 
 //    //EFFECTS: Returns a list of all of the habits for this log
 //    public List<String> getLogsHabits() {
