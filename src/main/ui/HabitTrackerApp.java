@@ -5,6 +5,8 @@ import model.Entry;
 import model.HabitEntry;
 import model.HabitLog;
 import model.HabitTracker;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //Habit Tracker Application
@@ -54,7 +56,7 @@ public class HabitTrackerApp {
     // EFFECTS: processes user input
     private void runMainTracker() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -282,7 +284,43 @@ public class HabitTrackerApp {
     public void viewEntry(String date) {
         System.out.println("Entry found");
         System.out.println();
-        tracker.printEntryContents(date);
+        printEntryContents(date);
+    }
+
+
+    public boolean printEntryContents(String date) {
+        ArrayList<Entry> entries = tracker.getEntries();
+        for (Entry e : entries) {
+            if (e.dateEquals(date)) {
+
+                System.out.println("Date: " + e.getEntryDate());
+                System.out.println();
+                System.out.println("Note:");
+                System.out.println(e.getNote());
+                System.out.println();
+                System.out.println("Habits:");
+                printHabits(e);
+            }
+        }
+        return false;
+    }
+
+    // EFFECTS: Prints the habits and if they were completed
+    public void printHabits(Entry e) {
+        HabitLog habits = e.getHabits();
+        int length = habits.length();
+
+        for (int i = 1; i <= length; i++) {
+            HabitEntry h = habits.getNextHabitEntry();
+
+            System.out.println(h.getHabit());
+            if (h.getCompletion()) {
+                System.out.println("Complete");
+            } else {
+                System.out.println("Incomplete");
+            }
+            System.out.println();
+        }
     }
 
     // MODIFIES: this
@@ -305,8 +343,11 @@ public class HabitTrackerApp {
 
         System.out.println("Enter the date in YYYY-MM-DD format:");
         String date = getValidDate();
+        input.nextLine();
+
         System.out.println("Enter your entry for the day:");
-        String entry = input.next();
+        String entry = input.nextLine();
+
         HabitLog habits = checkHabits();
 
         entryToAdd = new Entry(date, entry, habits);
@@ -315,9 +356,13 @@ public class HabitTrackerApp {
 
     }
 
+
+
     // EFFECTS:
-    private HabitLog checkHabits() {
-        HabitLog habits = tracker.getDefaultHabitLog();
+    private HabitLog checkHabits()  {
+        HabitLog habits = null;
+        habits = tracker.getDefaultHabitLog();
+
 
         for (int i = 1; i <= tracker.getDefaultHabitLogLength(); i++) {
             Boolean completion;
@@ -328,9 +373,7 @@ public class HabitTrackerApp {
 
             completion = selectYesOrNo();
 
-            HabitEntry updatedHabit = new HabitEntry(habit.getHabit(), completion);
-
-            habits.addHabitEntry(updatedHabit);
+            habits.addHabitEntry(new HabitEntry(habit.getHabit(), completion));
 
         }
 

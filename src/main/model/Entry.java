@@ -1,7 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
-
 //Represents a day's journal entry with a date, written entry and habit log
 public class Entry {
     private String date;          //the date in YYYY-MM-DD format
@@ -50,17 +48,5 @@ public class Entry {
     public void setHabits(HabitLog habits) {
         this.habits = habits;
     }
-
-    //EFFECTS prints the contents of an entry
-    public void printEntry() {
-        System.out.println("Date: " + this.getEntryDate());
-        System.out.println();
-        System.out.println("Note:");
-        System.out.println(this.getNote());
-        System.out.println();
-        System.out.println("Habits:");
-        habits.printHabits();
-    }
 }
-
 

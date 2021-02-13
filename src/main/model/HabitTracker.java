@@ -1,10 +1,6 @@
 package model;
 
-import com.sun.demo.jvmti.hprof.Tracker;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 //Represents all entries to the habit tacker
 public class HabitTracker {
@@ -16,6 +12,10 @@ public class HabitTracker {
         entries = new ArrayList<>();
     }
 
+
+    public ArrayList<Entry> getEntries() {
+        return entries;
+    }
 
     public void addEntry(Entry entry) {
         entries.add(entry);
@@ -50,6 +50,7 @@ public class HabitTracker {
         return defaultHabits;
     }
 
+
     // MODIFIES: This
     //EFFECT: gets the default habits
     public int getDefaultHabitLogLength() {
@@ -63,7 +64,6 @@ public class HabitTracker {
 
     //EFFECT: gets the dates of all entries in added
     public void listEntryDates() {
-
         for (Entry e : entries) {
             System.out.println(e.getEntryDate());
         }
@@ -72,7 +72,6 @@ public class HabitTracker {
     public int getDefaultHabitsMaxSize() {
         return defaultHabits.getMaxSize();
     }
-
 
     public boolean doesEntryExist(String date) {
         for (Entry e : entries) {
@@ -83,12 +82,4 @@ public class HabitTracker {
         return false;
     }
 
-    public boolean printEntryContents(String date) {
-        for (Entry e : entries) {
-            if (e.dateEquals(date)) {
-                e.printEntry();
-            }
-        }
-        return false;
-    }
 }
