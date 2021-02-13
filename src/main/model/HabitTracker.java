@@ -23,12 +23,6 @@ public class HabitTracker {
     }
 
     // MODIFIES: This
-    //EFFECT: set the habits that each new entry will include
-    public void setDefaultHabitLog(HabitLog defaultHabits) {
-        this.defaultHabits = defaultHabits;
-    }
-
-    // MODIFIES: This
     //EFFECT: add a HabitEntry that each new entry will include
     public void addDefaultHabitEntry(HabitEntry defaultHabit) {
         defaultHabits.addHabitEntry(defaultHabit);
