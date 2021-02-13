@@ -172,14 +172,14 @@ public class HabitTrackerApp {
                 displayMainMenu();
             }
         } else {
-            tracker.listDefaultHabits();
+            listDefaultHabits();
         }
         processHabitsMenu();
     }
 
     public void displayDeleteHabitsMenu() {
         System.out.println("What habit would you like to delete?");
-        tracker.listDefaultHabits();
+        listDefaultHabits();
         System.out.println("Enter the number corresponding to your habit:");
     }
 
@@ -314,6 +314,17 @@ public class HabitTrackerApp {
                 System.out.println("Incomplete");
             }
             System.out.println();
+        }
+    }
+
+
+    //EFFECTS: Produces all names of habits, numbered
+    public void listDefaultHabits() {
+        HabitLog habits = tracker.getDefaultHabitLog();
+        for (int i = 1; i <= habits.length(); i++) {
+            HabitEntry h = habits.getNextHabitEntry();
+            System.out.println(i + "- " + h.getHabit());
+            i++;
         }
     }
 

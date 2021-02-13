@@ -87,4 +87,21 @@ public class HabitLogTest {
         assertEquals(log.length(), 1);
     }
 
+    //Checking to see if remaining elements are as expected when removing center
+    @Test
+    public void testRemoveHabitAtPosition() {
+        HabitEntry entry_1 = new HabitEntry("Playing Guitar", false);
+        HabitEntry entry_2 = new HabitEntry("Playing flute", false);
+        HabitEntry entry_3 = new HabitEntry("Playing recorder", true);
+
+        log.addHabitEntry(entry_1);
+        log.addHabitEntry(entry_2);
+        log.addHabitEntry(entry_3);
+
+        log.removeHabitAtPosition(2);
+
+        assertEquals(log.getNextHabitEntry(), entry_1);
+        assertEquals(log.getNextHabitEntry(), entry_3);
+    }
+
 }

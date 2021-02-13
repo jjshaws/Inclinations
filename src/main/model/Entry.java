@@ -30,18 +30,14 @@ public class Entry {
     }
 
     //EFFECTS: Changes the note of the entry
-    public void setEntryDate(String date) {
+    public boolean setEntryDate(String date) {
         this.date = date;
+        return true;
     }
 
-    //EFFECTS Returns the written note of the entry
+    //EFFECTS Returns the associated HabitLog
     public HabitLog getHabits() {
         return habits;
-    }
-
-    //EFFECTS Returns the written note of the entry
-    public void setHabits(HabitLog habits) {
-        this.habits = habits;
     }
 }
 

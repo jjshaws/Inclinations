@@ -56,10 +56,6 @@ public class HabitTracker {
         return defaultHabits.length();
     }
 
-    //EFFECT: gets the default habits
-    public void listDefaultHabits() {
-        defaultHabits.listHabitNames();
-    }
 
     public int getDefaultHabitsMaxSize() {
         return defaultHabits.getMaxSize();

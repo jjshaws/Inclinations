@@ -25,14 +25,6 @@ public class HabitLog implements Cloneable {
         }
     }
 
-    //EFFECTS: Produces all names of habits, numbered
-    public void listHabitNames() {
-        int i = 1;
-        for (HabitEntry h : habits) {
-            System.out.println(i + "- " + h.getHabit());
-            i++;
-        }
-    }
 
     //REQUIRES: this isn't empty
     //MODIFIES: this
