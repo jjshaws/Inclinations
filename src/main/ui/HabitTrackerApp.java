@@ -1,6 +1,5 @@
 package ui;
 
-import com.sun.demo.jvmti.hprof.Tracker;
 import model.Entry;
 import model.HabitEntry;
 import model.HabitLog;
@@ -12,7 +11,7 @@ import java.util.Scanner;
 //Habit Tracker Application
 public class HabitTrackerApp {
     private Scanner input;
-    private HabitTracker tracker = new HabitTracker();
+    private final HabitTracker tracker = new HabitTracker();
 
     //EFFECTS: Runs the tracker application
     public HabitTrackerApp() {
@@ -49,11 +48,11 @@ public class HabitTrackerApp {
     private void displayEntriesMenu() {
         System.out.println();
         System.out.println("Enter the date of the entry that you would you like to view, or r to return to main menu");
-        tracker.listEntryDates();
+        listEntryDates();
     }
 
     // MODIFIES: this
-    // EFFECTS: processes user input
+    // EFFECTS: processes user input for the main menu
     private void runMainTracker() {
         boolean keepGoing = true;
         String command;
@@ -63,127 +62,75 @@ public class HabitTrackerApp {
         while (keepGoing) {
             displayMainMenu();
             command = input.next();
-
             if (command.equals("4")) {
                 keepGoing = false;
             } else {
                 processMainCommand(command);
             }
         }
-
-        System.out.println("\nGoodbye!");
-    }
-
-    // MODIFIES: this
-    // EFFECTS: processes user input
-    private void runHabitsTracker() {
-        boolean keepGoing = true;
-        String command = null;
-
-        while (keepGoing) {
-            displayMainMenu();
-            command = input.next();
-            command = command.toLowerCase();
-
-            if (command.equals("4")) {
-                keepGoing = false;
-            } else {
-                processMainCommand(command);
-            }
-        }
-
         System.out.println("\nGoodbye!");
     }
 
     // MODIFIES: this
     // EFFECTS: takes a user command for the main menu
     private void processMainCommand(String command) {
-        if (command.equals("1")) {
-            addEntry();
-        } else if (command.equals("2")) {
-            viewHabits();
-        } else if (command.equals("3")) {
-            processEntriesMenu();
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "1":
+                addEntry();
+                break;
+            case "2":
+                viewHabits();
+                break;
+            case "3":
+                processEntriesMenu();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: takes a user command for the Habits Menu
     private void processHabitsCommand(String command) {
-        if (command.equals("1")) {
-            addHabit();
-        } else if (command.equals("2")) {
-            deleteHabit();
-        } else if (command.equals("3")) {
-            runMainTracker();
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "1":
+                addHabit();
+                break;
+            case "2":
+                deleteHabit();
+                break;
+            case "3":
+                runMainTracker();
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
     // MODIFIES: this
     // EFFECTS: takes a user command for the Delete Habits Menu
     private void processDeleteHabitsCommand(String command) {
-
         while (!command.matches("[0-9]+")) {
             System.out.println("Invalid entry. Please enter a number");
             command = input.next();
         }
-
         int intCommand = Integer.parseInt(command);
-
         if (intCommand > tracker.getDefaultHabitLogLength() || intCommand < 1) {
             System.out.println("Selection not valid... Must be between 1 and " + tracker.getDefaultHabitLogLength());
-        } else if (intCommand <= tracker.getDefaultHabitsMaxSize() && intCommand > 0) {
+        } else if (intCommand <= tracker.getDefaultHabitsMaxSize()) {
             tracker.removeDefaultHabitEntryWithIndex(intCommand);
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: takes a user command for the Previous Entries Menu
-//    private void processPreviousEntriesCommand(String command) {
-//        if (command.equals("1")) {
-//            deleteEntry();
-//        } else if (command.equals("2")) {
-//            modifyNoteEntry();
-//        } else if (command.equals("3")) {
-//            ModifyCompletionEntry();
-//        } else {
-//            System.out.println("Selection not valid...");
-//        }
-//    }
-
-
-
     // MODIFIES: this
-    // EFFECTS: Shows the user the active habits and prompts for habits
-    private void viewHabits() {
-        System.out.println("Here are all active habits.");
-        System.out.println("These will be included in your new entries:");
-        //HabitLog habits = tracker.getDefaultHabitLog();
-
-        if (tracker.getDefaultHabitLogLength() == 0) {
-            System.out.println("There are no active habits!");
-            System.out.println("Would you like to add one?");
-            if (selectYesOrNo()) {
-                addHabit();
-            } else {
-                displayMainMenu();
-            }
-        } else {
-            tracker.listDefaultHabits();
-        }
-
-        processHabitsMenu();
-    }
-
+    // EFFECTS: takes a user command for Habit Processing menu
     public void processHabitsMenu() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         while (keepGoing) {
             displayHabitsMenu();
@@ -197,10 +144,10 @@ public class HabitTrackerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: takes a user command for delete Habit Processing menu
     public void processDeleteHabitMenu() {
-        boolean keepGoing = true;
-        String command = null;
-
+        String command;
         if (tracker.getDefaultHabitLogLength() == 0) {
             System.out.println("You have no habits in your default list! Please add some");
         } else {
@@ -208,8 +155,26 @@ public class HabitTrackerApp {
             command = input.next();
             processDeleteHabitsCommand(command);
         }
+    }
 
+    // MODIFIES: this
+    // EFFECTS: Shows the user the active habits and prompts for habits
+    private void viewHabits() {
+        System.out.println("Here are all active habits.");
+        System.out.println("These will be included in your new entries:");
+        if (tracker.getDefaultHabitLogLength() == 0) {
+            System.out.println("There are no active habits!");
+            System.out.println("Would you like to add one?");
 
+            if (selectYesOrNo()) {
+                addHabit();
+            } else {
+                displayMainMenu();
+            }
+        } else {
+            tracker.listDefaultHabits();
+        }
+        processHabitsMenu();
     }
 
     public void displayDeleteHabitsMenu() {
@@ -234,13 +199,36 @@ public class HabitTrackerApp {
         System.out.println("Returning to the habits menu");
     }
 
+    // MODIFIES: this
+    // EFFECTS: Deletes a habitEntry from this
     public void deleteHabit() {
         processDeleteHabitMenu();
     }
 
+    //EFFECT: gets the dates of all entries in added
+    public void listEntryDates() {
+        ArrayList<Entry> entries = tracker.getEntries();
+        for (Entry e : entries) {
+            System.out.println(e.getEntryDate());
+        }
+    }
+
+    // EFFECTS: Checks if an entry of a given date string exists within this
+    public boolean doesEntryExist(String date) {
+        ArrayList<Entry> entries = tracker.getEntries();
+        for (Entry e : entries) {
+            if (e.dateEquals(date)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: processes the user's input for viewing past entries and provides a way back to main menu
     public void processEntriesMenu() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         if (tracker.getNumEntries() == 0) {
             System.out.println();
@@ -260,8 +248,10 @@ public class HabitTrackerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Processes user input when searching for entries by a date string
     public void processDateCommand(String command) {
-        boolean exists = tracker.doesEntryExist(command);
+        boolean exists = doesEntryExist(command);
 
         if (exists) {
             viewEntry(command);
@@ -270,6 +260,8 @@ public class HabitTrackerApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Checks whether the user inputs either return to return to main menu or date in YYYY-MM-DD
     public String getValidEntriesCommand() {
         String s = input.next();
 
@@ -281,14 +273,16 @@ public class HabitTrackerApp {
         return s;
     }
 
+    // EFFECTS: prints entries found during the previous entry search
     public void viewEntry(String date) {
         System.out.println("Entry found");
         System.out.println();
         printEntryContents(date);
     }
 
-
-    public boolean printEntryContents(String date) {
+    // MODIFIES: this
+    // EFFECTS: given the date of the entry, prints out all of an entry's information
+    public void printEntryContents(String date) {
         ArrayList<Entry> entries = tracker.getEntries();
         for (Entry e : entries) {
             if (e.dateEquals(date)) {
@@ -302,9 +296,9 @@ public class HabitTrackerApp {
                 printHabits(e);
             }
         }
-        return false;
     }
 
+    // MODIFIES: this
     // EFFECTS: Prints the habits and if they were completed
     public void printHabits(Entry e) {
         HabitLog habits = e.getHabits();
@@ -336,7 +330,7 @@ public class HabitTrackerApp {
         return s;
     }
 
-    // MODIFIES: tracker
+    // MODIFIES: tracker and this
     // EFFECTS: constructs an Entry
     public void addEntry() {
         Entry entryToAdd;
@@ -356,30 +350,21 @@ public class HabitTrackerApp {
 
     }
 
-
-
-    // EFFECTS:
+    // MODIFIES: tracker
+    // EFFECTS: prompts the user for all tasks listed on the default task list
     private HabitLog checkHabits()  {
-        HabitLog habits = null;
+        HabitLog habits;
         habits = tracker.getDefaultHabitLog();
-
 
         for (int i = 1; i <= tracker.getDefaultHabitLogLength(); i++) {
             Boolean completion;
-
             HabitEntry habit = habits.getNextHabitEntry();
-
             System.out.println("Did you accomplish task \"" + habit.getHabit() + "\"?");
-
             completion = selectYesOrNo();
-
             habits.addHabitEntry(new HabitEntry(habit.getHabit(), completion));
-
         }
-
         System.out.println("All habits entered.");
         System.out.println("Returning to the main menu");
-
         return habits;
     }
 
@@ -390,6 +375,7 @@ public class HabitTrackerApp {
         input = new Scanner(System.in);
     }
 
+    // MODIFIES: this
     // EFFECTS: prompts user to choose from yes or no
     private Boolean selectYesOrNo() {
         String selection = "";  // force entry into loop
@@ -401,11 +387,6 @@ public class HabitTrackerApp {
             selection = input.next();
             selection = selection.toLowerCase();
         }
-
-        if (selection.equals("y")) {
-            return true;
-        } else {
-            return false;
-        }
+        return selection.equals("y");
     }
 }

@@ -19,11 +19,6 @@ public class Entry {
         return note;
     }
 
-    //EFFECTS: Changes the note of the entry
-    public void setNote(String note) {
-        this.note = note;
-    }
-
     //EFFECTS Returns the date of the entry
     public String getEntryDate() {
         return date;

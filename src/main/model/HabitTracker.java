@@ -7,16 +7,17 @@ public class HabitTracker {
     private ArrayList<Entry> entries;
     private HabitLog defaultHabits = new HabitLog();
 
-
     public HabitTracker() {
         entries = new ArrayList<>();
     }
 
-
+    // EFFECT: gets the entries
     public ArrayList<Entry> getEntries() {
         return entries;
     }
 
+    // MODIFIES: entries
+    // EFFECT: adds an entry to this HabitTracker
     public void addEntry(Entry entry) {
         entries.add(entry);
     }
@@ -32,7 +33,6 @@ public class HabitTracker {
     public void addDefaultHabitEntry(HabitEntry defaultHabit) {
         defaultHabits.addHabitEntry(defaultHabit);
     }
-
 
     public void removeDefaultHabitEntryWithIndex(int i) {
         defaultHabits.removeHabitAtPosition(i);
@@ -50,7 +50,6 @@ public class HabitTracker {
         return defaultHabits;
     }
 
-
     // MODIFIES: This
     //EFFECT: gets the default habits
     public int getDefaultHabitLogLength() {
@@ -62,24 +61,8 @@ public class HabitTracker {
         defaultHabits.listHabitNames();
     }
 
-    //EFFECT: gets the dates of all entries in added
-    public void listEntryDates() {
-        for (Entry e : entries) {
-            System.out.println(e.getEntryDate());
-        }
-    }
-
     public int getDefaultHabitsMaxSize() {
         return defaultHabits.getMaxSize();
-    }
-
-    public boolean doesEntryExist(String date) {
-        for (Entry e : entries) {
-            if (e.dateEquals(date)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

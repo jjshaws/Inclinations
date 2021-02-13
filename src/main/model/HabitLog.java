@@ -41,13 +41,11 @@ public class HabitLog implements Cloneable {
         return habits.poll();
     }
 
-
     //MODIFIES: this
     //EFFECTS: removes the HabitEntry from the HabitLog, returns true. Returns false if not present
     public void removeHabitAtPosition(int i) {
         habits.remove(i - 1);
     }
-
 
     //EFFECTS: Returns the length of the HabitLog
     public int length() {

@@ -23,7 +23,6 @@ public class EntryTest {
         entry = new Entry("2020-12-28", "had a good day", habits);
     }
 
-
     @Test
     public void testGettersAndSetters() {
         HabitEntry entry1 = new HabitEntry("Cook", true);
