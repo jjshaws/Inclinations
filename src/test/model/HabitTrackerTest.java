@@ -50,6 +50,7 @@ public class HabitTrackerTest {
         app.addEntry(entry);
     }
 
+
     //Checks that adding Habit entries gives the correct length
     @Test
     public void testAddDefaultHabitEntry() {
@@ -63,7 +64,29 @@ public class HabitTrackerTest {
         test.addHabitEntry(entry1);
         test.addHabitEntry(entry2);
 
-        assertEquals(app.getDefaultHabitLogLength(), 2);
+       assertEquals(app.getDefaultHabitLogLength(), 2);
+    }
+
+    //Checks that adding Habit entries gives the correct length
+    @Test
+    public void testGetDefaultHabitLog() {
+        HabitEntry entry1 = new HabitEntry("Cook", true);
+        HabitEntry entry2 = new HabitEntry("Clean", false);
+
+        app.addDefaultHabitEntry(entry1);
+        app.addDefaultHabitEntry(entry2);
+
+
+        HabitLog test = new HabitLog();
+        test.addHabitEntry(entry1);
+        test.addHabitEntry(entry2);
+
+        ArrayList<Entry> test2 = new ArrayList<Entry>();
+        test2 = app.getEntries();
+
+        HabitLog testCase = app.getDefaultHabitLog();
+        assertEquals(testCase.length(), 2);
+        assertEquals(test2.size(), 0);
     }
 
     //Tests that removing default Habit Entries yields the correct lengths
@@ -112,25 +135,6 @@ public class HabitTrackerTest {
         assertEquals(app.getNumEntries(), 3);
     }
 
-    //Tests the length of the Habit Log
-    @Test
-    public void testGetDefaultHabitLog() {
-        HabitEntry entry1 = new HabitEntry("Cook", true);
-        HabitEntry entry2 = new HabitEntry("Clean", false);
-        HabitEntry entry3 = new HabitEntry("Cool", true);
-        HabitEntry entry4 = new HabitEntry("Bake", false);
-        HabitEntry entry5 = new HabitEntry("Boombox", true);
-        HabitEntry entry6 = new HabitEntry("Create", false);
-
-        app.addDefaultHabitEntry(entry1);
-        app.addDefaultHabitEntry(entry2);
-        app.addDefaultHabitEntry(entry3);
-        app.addDefaultHabitEntry(entry4);
-        app.addDefaultHabitEntry(entry5);
-        app.addDefaultHabitEntry(entry6);
-
-        assertEquals(app.getDefaultHabitLogLength(), 6);
-    }
 
     //Checks that the length is read correctly
     @Test
